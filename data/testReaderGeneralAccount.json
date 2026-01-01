@@ -1,0 +1,15 @@
+{
+    "foods": [
+        {
+            "calories per 100": 52.1,
+            "food": "Apple"
+        },
+        {
+            "calories per 100": 250.5,
+            "food": "Beef"
+        }
+    ],
+    "left": 1228.66,
+    "TDEE": 1500,
+    "name": "ning"
+}

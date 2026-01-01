@@ -1,0 +1,23 @@
+{
+    "foods": [
+        {
+            "calories per 100": 52.1,
+            "food": "Apple"
+        },
+        {
+            "calories per 100": 100,
+            "food": "Yogurt (Greek)"
+        },
+        {
+            "calories per 100": 98.5,
+            "food": "Cheese (Cottage)"
+        },
+        {
+            "calories per 100": 155.1,
+            "food": "Egg (Boiled)"
+        }
+    ],
+    "left": 1028.14,
+    "TDEE": 1200,
+    "name": "ning"
+}
