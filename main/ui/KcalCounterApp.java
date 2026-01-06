@@ -21,7 +21,7 @@ public class KcalCounterApp {
     private JsonReader jsonReader;
 
     @SuppressWarnings("methodlength")
-    private final Food apple = new Food("Apple", 52.1); //
+    private final Food apple = new Food("Apple", 52.1); 
     private final Food banana = new Food("Banana", 88.7); //
     private final Food broccoli = new Food("Broccoli", 33.7); //
     private final Food carrots = new Food("Carrots", 41.3); //
@@ -154,11 +154,26 @@ public class KcalCounterApp {
     //         amount of calories remaining for the day and add food to
     //         list consumed food 
     private void processFood(Food food) {
-        double grams = processAmount();
-        double calo = food.getCaloriesPerAmount(grams);
-        printCaloriesConsumed(calo);
-        double remains = account.consumeNewFood(calo);
-        printCaloriesRemain(remains);
+        double grams;
+        double calories; 
+        double remaining = account.getRemainingCalories();
+
+        while (true) {
+            grams = processAmount();
+            calories = food.getCaloriesPerAmount(grams);
+
+            if (calories > remaining) {
+                System.out.println("Error: You only have "
+                    + String.format("%.2f", remaining)
+                    + " kcal left today.");
+                System.out.println("Please enter a smaller amount.");
+            } else { 
+                break; //valid amount
+            }
+        }
+        printCaloriesConsumed(calories);
+        double newRemain = account.consumeNewFood(calories);
+        printCaloriesRemain(newRemain);
         account.addFood(food);
     }
 
@@ -274,7 +289,8 @@ public class KcalCounterApp {
 
     }
 
-    //EFFECTS: prints total calories user can consume left
+    //EFFECTS: prints total calories user can consume left, 
+    // throws IllegalArgumentException if remains < 0
     private void printCaloriesRemain(double remains) {
         System.out.printf("Total remaining calories of the day: %.2f kcal\n", remains);
     }

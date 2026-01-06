@@ -51,6 +51,10 @@ public class Account implements Writable {
         return consumedFoods.size();
     }
 
+    public double getRemainingCalories() {
+        return left; 
+    }
+
     //EFFECTS: add new consumed food to food list and add the log to collection of event
     public void addFood(Food foodName) {
         consumedFoods.add(foodName);
@@ -59,13 +63,13 @@ public class Account implements Writable {
 
     }
 
-    //REQURES: caloIn >= 0
+    //REQURES: caloIn >= 0 && caloIn <= left
     //MODIFIES: this
     //EFFECTS: deduct the amount of calorie the user can have after
     //         consume food (caloIn) and update amount calories 
     //         the user have left
     public double consumeNewFood(double caloIn) {
-        left = left - caloIn;
+        left -= caloIn;
         return left;
     }
 
