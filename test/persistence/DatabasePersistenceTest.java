@@ -11,14 +11,14 @@ public class DatabasePersistenceTest {
         String url = "jdbc:postgresql://localhost:5432/calories_counter"; 
         //use postgresql, connected to my computer, on port 5432, to database: calories counter
         String user = "ningshu";
-        String password = "password";
+        String password = "password"; //if doest have anything then leave as """
         //depends on the setup password
 
         //try to connect: 
         try (Connection con = DriverManager.getConnection(url, user, password)) { //test
             //connection con: opens the connection and closes it safely when done 
             //if reach herel, then connection works 
-            System.err.println("Connected to database successfully");
+            System.err.println("Connected to database successfully!");
         } catch (SQLException e) {
             //if something goes wrong, catch it here and print 
             System.err.println("Connection failed.");

@@ -22,16 +22,16 @@ public class KcalCounterApp {
 
     @SuppressWarnings("methodlength")
     private final Food apple = new Food("Apple", 52.1); 
-    private final Food banana = new Food("Banana", 88.7); //
-    private final Food broccoli = new Food("Broccoli", 33.7); //
-    private final Food carrots = new Food("Carrots", 41.3); //
-    private final Food beef = new Food("Beef", 250.5); //
-    private final Food chicken = new Food("Chicken (Breast)", 164.9); //
-    private final Food fish = new Food("Fish (Salmon)", 208.2); //
-    private final Food milk = new Food("Milk (1% Fat)", 42.0); //
-    private final Food yogurt = new Food("Yogurt (Greek)", 100.0); //
-    private final Food cheese = new Food("Cheese (Cottage)", 98.5); //
-    private final Food egg = new Food("Egg (Boiled)", 155.1); //
+    private final Food banana = new Food("Banana", 88.7); 
+    private final Food broccoli = new Food("Broccoli", 33.7); 
+    private final Food carrots = new Food("Carrots", 41.3); 
+    private final Food beef = new Food("Beef", 250.5); 
+    private final Food chicken = new Food("Chicken (Breast)", 164.9); 
+    private final Food fish = new Food("Fish (Salmon)", 208.2); 
+    private final Food milk = new Food("Milk (1% Fat)", 42.0); 
+    private final Food yogurt = new Food("Yogurt (Greek)", 100.0); 
+    private final Food cheese = new Food("Cheese (Cottage)", 98.5); 
+    private final Food egg = new Food("Egg (Boiled)", 155.1); 
 
     //EFFECTS: runs the Calorie Counter application
     public KcalCounterApp() throws FileNotFoundException {
