@@ -44,8 +44,8 @@ public class JsonWriterTest extends JsonTest {
     void testWriterGeneralWorkroom() {
         try {
             Account newAcc = new Account("ning", 1200, 1200);
-            newAcc.addFood(new Food("Apple", 52.1));
-            newAcc.addFood(new Food("Beef", 250.5));
+            newAcc.addFood(new Food(1, "Apple", 52.1));
+            newAcc.addFood(new Food(7, "Beef", 250.5));
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralWorkroom.json");
             writer.open();
             writer.write(newAcc);

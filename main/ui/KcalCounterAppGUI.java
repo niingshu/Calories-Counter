@@ -236,37 +236,37 @@ public class KcalCounterAppGUI extends JFrame {
     // load food items
     private void loadFoodItems() {
         fruits.put("Apple",
-                new FoodItem(new Food("Apple", 52.1),
+                new FoodItem(new Food(1, "Apple", 52.1),
                         Images.getScaledIcon("apple", 100, 100)));
         fruits.put("Banana",
-                new FoodItem(new Food("Banana", 88.7),
+                new FoodItem(new Food(4, "Banana", 88.7),
                         Images.getScaledIcon("banana", 100, 100)));
         vegetables.put("Broccoli",
-                new FoodItem(new Food("Broccoli", 33.7),
+                new FoodItem(new Food(5, "Broccoli", 33.7),
                         Images.getScaledIcon("broccoli", 100, 100)));
         vegetables.put("Carrots",
-                new FoodItem(new Food("Carrots", 41.3),
+                new FoodItem(new Food(6, "Carrots", 41.3),
                         Images.getScaledIcon("carrot", 100, 100)));
         meat.put("Beef",
-                new FoodItem(new Food("Beef", 250.5),
+                new FoodItem(new Food(7, "Beef", 250.5),
                         Images.getScaledIcon("beef", 100, 100)));
         meat.put("Chicken",
-                new FoodItem(new Food("Chicken (Breast)", 164.9),
+                new FoodItem(new Food(8, "Chicken (Breast)", 164.9),
                         Images.getScaledIcon("chicken", 100, 100)));
         meat.put("Fish",
-                new FoodItem(new Food("Fish (Salmon)", 208.2),
+                new FoodItem(new Food(9, "Fish (Salmon)", 208.2),
                         Images.getScaledIcon("salmon", 100, 100)));
         dairy.put("Milk",
-                new FoodItem(new Food("Milk (1% Fat)", 42),
+                new FoodItem(new Food(10, "Milk (1% Fat)", 42),
                         Images.getScaledIcon("milk", 100, 100)));
         dairy.put("Yogurt (Greek)",
-                new FoodItem(new Food("Yogurt (Greek)", 100),
+                new FoodItem(new Food(11, "Yogurt (Greek)", 100),
                         Images.getScaledIcon("yogurt", 100, 100)));
         dairy.put("Cheese (Cottage)",
-                new FoodItem(new Food("Cheese (Cottage)", 98.5),
+                new FoodItem(new Food(12, "Cheese (Cottage)", 98.5),
                         Images.getScaledIcon("cheese", 100, 100)));
         protein.put("Egg",
-                new FoodItem(new Food("Egg (Boiled)", 155.1),
+                new FoodItem(new Food(13, "Egg (Boiled)", 155.1),
                         Images.getScaledIcon("egg", 100, 100)));
     }
 

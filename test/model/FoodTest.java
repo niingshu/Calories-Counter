@@ -10,7 +10,7 @@ public class FoodTest {
 
     @BeforeEach
     void runBefore() {
-        testFood = new Food("Apple", 52.1);
+        testFood = new Food(1, "Apple", 52.1);
     }
 
     @Test

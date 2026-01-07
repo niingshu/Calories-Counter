@@ -52,13 +52,13 @@ public class AccountTest {
 
         List<Food> foods = testAccount.getConsumedFoods();
 
-        Food apple = new Food("Apple", 52.1);
+        Food apple = new Food(1, "Apple", 52.1);
 
         testAccount.addFood(apple);
         assertEquals(1, foods.size()); //check the legth of list
         assertEquals("Apple", foods.get(0).getFoodName());
 
-        Food banana = new Food("Banana", 88.7);
+        Food banana = new Food(4, "Banana", 88.7);
         testAccount.addFood(banana);
         assertEquals(2, foods.size());
         assertEquals("Banana", foods.get(1).getFoodName()); //see if add properly

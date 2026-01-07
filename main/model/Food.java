@@ -5,14 +5,20 @@ import org.json.JSONObject;
 
 //Represent the food (name) with its calories per 100g
 public class Food implements Writable {
+    private int id;
     private String food;        //type of food
     private double calories;    //calories of food per 100g
 
     //EFFECTS: remembers the name of the food and the
     //         calories it has per 100g 
-    public Food(String food, double calories) {
+    public Food(int id, String food, double calories) {
+        this.id = id;
         this.food = food;
         this.calories = calories;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFoodName() {
