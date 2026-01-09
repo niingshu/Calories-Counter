@@ -42,8 +42,23 @@ public class DatabasePersistence {
 
 
 
-    public void logFood(int foodId, BigDecimal quantity) {
-
+    public void logFood(int foodId, BigDecimal quantity) throws SQLException {
+        String input = "INSERT INTO daily_log(food_id, quantity, eaten_at) VALUES (?, ?, CURRENT_DATE)";
+        //java sends exactly one statement 
+        //jdbc already knows where the statement ends
+        
+        String url = "jdbc:postgresql://localhost:5432/calories_counter";
+        String username = "ningshu";
+        String password = "password";
+        
+        try (Connection con = DriverManager.getConnection(url, username, password)) {
+            PreparedStatement ps = con.prepareStatement(input);
+            
+            ps.setInt(1, foodId);
+            ps.setBigDecimal(2, quantity);
+            
+            ps.executeUpdate();
+        }
     }
 
     public BigDecimal getCaloriesConsumedToday() { //because database use numeric(6,2)

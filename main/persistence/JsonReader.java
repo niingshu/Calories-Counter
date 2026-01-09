@@ -68,7 +68,8 @@ public class JsonReader {
     private void addFood(Account newAcc, JSONObject jsonObject) {
         String name = jsonObject.getString("food");
         double caloPer100 = jsonObject.getDouble("calories per 100");
-        Food newFood = new Food(name, caloPer100);
+        Food newFood = new Food(1, name, caloPer100);
         newAcc.addFood(newFood);
     }
+    // check json
 }
