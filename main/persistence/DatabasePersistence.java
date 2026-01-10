@@ -61,7 +61,26 @@ public class DatabasePersistence {
         }
     }
 
-    public BigDecimal getCaloriesConsumedToday() { //because database use numeric(6,2)
+    public BigDecimal getCaloriesConsumedToday() throws SQLException { //because database use numeric(6,2)
+        String url = "jdbc:postgresql://localhost:5432/calories_counter";
+        String username = "ningshu";
+        String password = "password";
 
+        String input = "SELECT SUM(f.calories * d.quantity) AS calories_consumed " +  
+                        "FROM daily_log d " + 
+                        "JOIN foods f ON d.food_id = f.id " + 
+                        "WHERE d.eaten_at = CURRENT_DATE ";
+
+        try (Connection con = DriverManager.getConnection(url, username, password)) {
+            PreparedStatement ps = con.prepareStatement(input);
+            ResultSet res = ps.executeQuery();
+
+            if (res.next()) {
+                BigDecimal result =  res.getBigDecimal("calories_consumed"); 
+                return result != null ? result: BigDecimal.ZERO;
+            }
+        }
+
+        return BigDecimal.ZERO;
     }
 }
