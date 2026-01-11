@@ -229,7 +229,7 @@ public class KcalCounterAppGUI extends JFrame {
 
     //
     private void loadAccDB() {
-
+        
     }
 
     // load the saved account data

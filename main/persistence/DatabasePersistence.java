@@ -22,8 +22,8 @@ public class DatabasePersistence {
 
         //open connection with db
         try (Connection con = DriverManager.getConnection(url, user, password);
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query)) {
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -45,16 +45,25 @@ public class DatabasePersistence {
         String url = "jdbc:postgresql://localhost:5432/calories_counter"; 
         String user = "ningshu";
         String password = "password";
-        String query = "SELECT " + 
-                        "FROM daily_log " + 
-                        "WHERE eaten_at = (SELECT MAX(eaten_at) FROM daily_log)"; 
+        String query = "SELECT d.food_id, f.name, f.calories " + 
+                        "FROM daily_log d " + 
+                        "JOIN foods f ON d.food_id = f.id"; 
 
         try (Connection con = DriverManager.getConnection(url, user, password);
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(query)) {
+        PreparedStatement stmt = con.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery()) {
             
-        }
+            while (rs.next()) { //while there is food (execute from the result table)
+                //i want to take the food and use acc.addFood(Food)
+                int foodId = rs.getInt("food_id"); 
+                String foodName = rs.getNString("name");
+                BigDecimal foodCalories = rs.getBigDecimal("calories");
+                double calories = foodCalories.doubleValue();
 
+                Food newFood = new Food(foodId, foodName, calories); 
+                acc.addFood(newFood);
+            }
+        }
     }
 
     public Account getAccount() throws SQLException {
@@ -66,8 +75,8 @@ public class DatabasePersistence {
         Account acc = new Account("", 0, 0);
 
         try (Connection con = DriverManager.getConnection(url, user, password);
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query)) {
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery()) {
 
             if (rs.next()) {
                 String name = rs.getString("username");
@@ -85,7 +94,7 @@ public class DatabasePersistence {
 
     //need to overwrite account table
 
-    public void logFood(int foodId, BigDecimal quantity) throws SQLException {
+    public void eatFood(int foodId, BigDecimal quantity) throws SQLException {
         String input = "INSERT INTO daily_log(food_id, quantity, eaten_at) VALUES (?, ?, CURRENT_DATE)";
         //java sends exactly one statement 
         //jdbc already knows where the statement ends
