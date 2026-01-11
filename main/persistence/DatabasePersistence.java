@@ -41,6 +41,49 @@ public class DatabasePersistence {
     }
 
 
+    public void getLogs(Account acc) throws SQLException {
+        String url = "jdbc:postgresql://localhost:5432/calories_counter"; 
+        String user = "ningshu";
+        String password = "password";
+        String query = "SELECT " + 
+                        "FROM daily_log " + 
+                        "WHERE eaten_at = (SELECT MAX(eaten_at) FROM daily_log)"; 
+
+        try (Connection con = DriverManager.getConnection(url, user, password);
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query)) {
+            
+        }
+
+    }
+
+    public Account getAccount() throws SQLException {
+        String query = "SELECT username, tdee, calories_left FROM account ORDER BY username"; 
+        String url = "jdbc:postgresql://localhost:5432/calories_counter"; 
+        String user = "ningshu";
+        String password = "password";
+
+        Account acc = new Account("", 0, 0);
+
+        try (Connection con = DriverManager.getConnection(url, user, password);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query)) {
+
+            if (rs.next()) {
+                String name = rs.getString("username");
+                int tdee = rs.getInt("tdee");
+                BigDecimal calLeft = rs.getBigDecimal("calories_left");
+                double left = calLeft.doubleValue();
+                
+                //create new food every row
+                acc = new Account(name, tdee, left); 
+            }
+        } // Resources are closed automatically here
+
+        return acc;
+    }
+
+    //need to overwrite account table
 
     public void logFood(int foodId, BigDecimal quantity) throws SQLException {
         String input = "INSERT INTO daily_log(food_id, quantity, eaten_at) VALUES (?, ?, CURRENT_DATE)";

@@ -33,6 +33,8 @@ public class KcalCounterApp {
     private final Food cheese = new Food(12, "Cheese (Cottage)", 98.5); 
     private final Food egg = new Food(13, "Egg (Boiled)", 155.1); 
 
+
+
     //EFFECTS: runs the Calorie Counter application
     public KcalCounterApp() throws FileNotFoundException {
         jsonWriter = new JsonWriter(JSON_STORE);

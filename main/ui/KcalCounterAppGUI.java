@@ -126,11 +126,11 @@ public class KcalCounterAppGUI extends JFrame {
 
         // save
         JButton saveButton = new JButton("Save");
-        saveButton.addActionListener(e -> saveAcc()); // call to the save account json med
+        saveButton.addActionListener(e -> saveAccDB()); // call to the save account json med
 
         // load
         JButton loadButton = new JButton("Load");
-        loadButton.addActionListener(e -> loadAcc()); // load acc
+        loadButton.addActionListener(e -> loadAccDB()); // load acc
 
         // quit
         JButton quitButton = new JButton("Quit");
@@ -210,8 +210,13 @@ public class KcalCounterAppGUI extends JFrame {
         }
     }
 
+    //
+    private void saveAccDB() {
+
+    }
+
     // save to account data
-    private void saveAcc() {
+    private void saveAccJson() {
         try {
             jsonWriter.open(); // open the file data imput
             jsonWriter.write(account);
@@ -222,8 +227,13 @@ public class KcalCounterAppGUI extends JFrame {
         }
     }
 
+    //
+    private void loadAccDB() {
+
+    }
+
     // load the saved account data
-    private void loadAcc() {
+    private void loadAccJson() {
         try {
             account = jsonReader.read(); // read from the data memo
             JOptionPane.showMessageDialog(this, "Loaded data for " + account.getUsername());
