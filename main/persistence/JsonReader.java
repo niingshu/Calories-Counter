@@ -69,7 +69,7 @@ public class JsonReader {
         String name = jsonObject.getString("food");
         double caloPer100 = jsonObject.getDouble("calories per 100");
         Food newFood = new Food(1, name, caloPer100);
-        newAcc.addFood(newFood);
+        newAcc.addFood(newFood, 100);
     }
     // check json
 }

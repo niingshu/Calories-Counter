@@ -1,6 +1,7 @@
 package persistence;
 
 import model.Food;
+import model.FoodEntry;
 import model.Account;
 
 import org.json.JSONObject;
@@ -42,10 +43,10 @@ public class JsonReaderTest extends JsonTest {
         try {
             Account newAcc = reader.read();
             assertEquals("ning", newAcc.getUsername());
-            List<Food> foods = newAcc.getConsumedFoods();
+            List<FoodEntry> foods = newAcc.getConsumedFoods();
             assertEquals(2, foods.size());
-            checkFood("Apple", 52.1, foods.get(0));
-            checkFood("Beef", 250.5, foods.get(1));
+            checkFood("Apple", 52.1, foods.get(0).getFood());
+            checkFood("Beef", 250.5, foods.get(1).getFood());
         } catch (IOException e) {
             fail("Couldn't read from file");
         }

@@ -1,9 +1,11 @@
 package ui;
 
 import model.Food;
+import model.FoodEntry;
 import model.Account;
 import model.EventLog;
 import model.Event;
+import persistence.DatabasePersistence;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import java.util.List;
@@ -12,6 +14,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.*;
 
 public class KcalCounterAppGUI extends JFrame {
@@ -22,6 +26,8 @@ public class KcalCounterAppGUI extends JFrame {
     // popping from menu (home) to food choices to history and back
     private JPanel cardPanel; // contaier panel that holds the displays
     private Account account;
+    private DatabasePersistence database = new DatabasePersistence(); 
+
     private JsonReader jsonReader; // read input from user
     private JsonWriter jsonWriter; // allow user to type
 
@@ -189,7 +195,7 @@ public class KcalCounterAppGUI extends JFrame {
         }
         double kcal = item.getFood().getCaloriesPerAmount(grams);
         account.consumeNewFood(kcal);
-        account.addFood(item.getFood());
+        account.addFood(item.getFood(), grams);
 
         JOptionPane.showMessageDialog(this,
                 account.getUsername() + " consumed: " + kcal + "\nRemaining: " + account.getCaloLeft());
@@ -197,21 +203,28 @@ public class KcalCounterAppGUI extends JFrame {
 
     // display history
     private void showHistory() {
-        List<Food> foods = account.getConsumedFoods(); // return list of food
+        List<FoodEntry> foods = account.getConsumedFoods(); // return list of food
         if (foods.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     account.getUsername() + " has not consumed anything");
         } else {
             StringBuilder sb = new StringBuilder(account.getUsername() + " consumed:\n");
-            for (Food f : foods) {
-                sb.append(" - " + f.getFoodName() + "\n"); // " - foodname "
+            for (FoodEntry fEntry : foods) {
+                sb.append(" - " + fEntry.getFood().getFoodName() + "\n"); // " - foodname "
             }
             JOptionPane.showMessageDialog(this, sb.toString()); // display whole thing
         }
     }
 
-    //
     private void saveAccDB() {
+        try {
+            List<FoodEntry> foods = account.getConsumedFoods();
+            database.eatFoods(foods);
+            database.updateUser(account);
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error: File not found");
+        }
 
     }
 
@@ -227,9 +240,16 @@ public class KcalCounterAppGUI extends JFrame {
         }
     }
 
-    //
+    //load and construct new account from database
     private void loadAccDB() {
-        
+        try {
+            account = database.getAccount(); 
+            database.getLogs(account);
+            
+            JOptionPane.showMessageDialog(this, "Loaded data for " + account.getUsername());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error loading saved data from account");
+        }
     }
 
     // load the saved account data

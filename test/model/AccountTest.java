@@ -50,17 +50,17 @@ public class AccountTest {
     void testAddFood() {
         assertTrue(testAccount.getConsumedFoods().isEmpty()); //null at start
 
-        List<Food> foods = testAccount.getConsumedFoods();
+        List<FoodEntry> fEntries = testAccount.getConsumedFoods();
 
         Food apple = new Food(1, "Apple", 52.1);
 
-        testAccount.addFood(apple);
-        assertEquals(1, foods.size()); //check the legth of list
-        assertEquals("Apple", foods.get(0).getFoodName());
+        testAccount.addFood(apple, 30.0);
+        assertEquals(1, fEntries.size()); //check the legth of list
+        assertEquals("Apple", fEntries.get(0).getFood().getFoodName());
 
         Food banana = new Food(4, "Banana", 88.7);
-        testAccount.addFood(banana);
-        assertEquals(2, foods.size());
-        assertEquals("Banana", foods.get(1).getFoodName()); //see if add properly
+        testAccount.addFood(banana, 42.5);
+        assertEquals(2, fEntries.size());
+        assertEquals("Banana", fEntries.get(1).getFood().getFoodName()); //see if add properly
     }
 }

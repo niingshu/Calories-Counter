@@ -1,6 +1,7 @@
 package persistence;
 
 import model.Food;
+import model.FoodEntry;
 import model.Account;
 import org.junit.jupiter.api.Test;
 
@@ -44,8 +45,8 @@ public class JsonWriterTest extends JsonTest {
     void testWriterGeneralWorkroom() {
         try {
             Account newAcc = new Account("ning", 1200, 1200);
-            newAcc.addFood(new Food(1, "Apple", 52.1));
-            newAcc.addFood(new Food(7, "Beef", 250.5));
+            newAcc.addFood(new Food(1, "Apple", 52.1), 10.0);
+            newAcc.addFood(new Food(7, "Beef", 250.5), 10.5);
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralWorkroom.json");
             writer.open();
             writer.write(newAcc);
@@ -54,10 +55,10 @@ public class JsonWriterTest extends JsonTest {
             JsonReader reader = new JsonReader("./data/testWriterGeneralWorkroom.json");
             newAcc = reader.read();
             assertEquals("ning", newAcc.getUsername());
-            List<Food> foods = newAcc.getConsumedFoods();
+            List<FoodEntry> foods = newAcc.getConsumedFoods();
             assertEquals(2, foods.size());
-            checkFood("Apple", 52.1, foods.get(0));
-            checkFood("Beef", 250.5, foods.get(1));
+            checkFood("Apple", 52.1, foods.get(0).getFood());
+            checkFood("Beef", 250.5, foods.get(1).getFood());
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");

@@ -4,6 +4,7 @@ import model.Account;
 import model.Event;
 import model.EventLog;
 import model.Food;
+import model.FoodEntry;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -176,7 +177,7 @@ public class KcalCounterApp {
         printCaloriesConsumed(calories);
         double newRemain = account.consumeNewFood(calories);
         printCaloriesRemain(newRemain);
-        account.addFood(food);
+        account.addFood(food, grams);
     }
 
     //EFFECTS: display choices of fruits food 
@@ -218,14 +219,14 @@ public class KcalCounterApp {
     //EFFECTS: display cosumed food history
     private void displayHistory() {
         System.out.println("List of consumed food so far:");
-        List<Food> foods = account.getConsumedFoods();
+        List<FoodEntry> foods = account.getConsumedFoods();
 
         if (foods.isEmpty()) {
             System.out.println(account.getUsername() + " has not consumed anything");
         } else { //print every get(num) in list -> for loop 
             System.out.println(account.getUsername() + " consumed: ");
-            for (Food food: foods) { //for every element in food that is string
-                System.out.println("\t " + food.getFoodName());
+            for (FoodEntry fEntry: foods) { //for every element in food that is string
+                System.out.println("\t " + fEntry.getFood().getFoodName());
             }
         }  
     }

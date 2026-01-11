@@ -13,7 +13,7 @@ public class Account implements Writable {
     private String username;    //account username
     private double tdee;        //the user TDEE
     private double left;        //the amount of calorie user can consume left
-    private List<Food> consumedFoods = new ArrayList<>(); //remembers consumed foods
+    private List<FoodEntry> consumedFoods = new ArrayList<>(); //remembers consumed foods
 
     //REQUIRES: initialLeft <= TDEE
     //EFFECTS: username is set to accountName
@@ -43,7 +43,7 @@ public class Account implements Writable {
         return left;
     }
 
-    public List<Food> getConsumedFoods() {
+    public List<FoodEntry> getConsumedFoods() {
         return consumedFoods;
     }
 
@@ -56,8 +56,8 @@ public class Account implements Writable {
     }
 
     //EFFECTS: add new consumed food to food list and add the log to collection of event
-    public void addFood(Food foodName) {
-        consumedFoods.add(foodName);
+    public void addFood(Food foodName, double quantity) {
+        consumedFoods.add(new FoodEntry(foodName, quantity));
         EventLog.getInstance().logEvent(new Event("Added new food: " + foodName.getFoodName())); 
         //return an event log 
 
@@ -87,8 +87,8 @@ public class Account implements Writable {
     private JSONArray foodsToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (Food f : consumedFoods) {
-            jsonArray.put(f.toJson());
+        for (FoodEntry f : consumedFoods) {
+            jsonArray.put(f.getFood().toJson());
         }
 
         return jsonArray;
